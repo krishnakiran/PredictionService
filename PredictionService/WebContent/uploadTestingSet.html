@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Anomaly Detection WorkBench</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<br />
+		<h1>
+			<img src="bootstrap/img/bludemo.jpg"><a href="index.html">Anomaly Detection WorkBench</a>
+			<a href="index.html" class="btn btn-info"><i class="icon-white icon-home center"></i> Home</a>
+			
+		</h1>
+		<br /> <br /> <br />
+		<div class="row">
+			<div class="span8">
+				<h1>Upload the Testing Set</h1>
+				<h5>*This analysis refers to your selected Data model or a
+					model created using Naive Bayesian's Algorithm for classification
+					over Pmobile's customer dataset</h5>
+				<br>					
+			</div>
+			
+		<form action="./UploadFileServlet" method="post" class="form-horizontal" id="surveyForm" accept-charset="utf-8" enctype="multipart/form-data">
+			<div class="span4">
+				<div class="control-group">
+					<span class="btn btn-default btn-file">
+						<input type="file" id="file" name="file" accept=".csv" required>
+					</span>
+					<br />
+					<br />
+					*Please upload a CSV file
+					<br />
+					<br />
+					<!-- For a sample testing set, please click <a href="sampleFiles/churn-testingset.csv" target="_blank" download>here</a>. -->
+				</div>
+				<button type="submit" class="btn btn-large btn-success"><i class="icon-white icon-signal"></i>   Run the Analysis</button>
+			</div>
+		</form>
+		</div>
+	</div>
+	<hr>
+	<script>
+	$("input[type='radio']").change(function(){
+		   
+		if($(this).val()=="other")
+		{
+		    $("#other").show();
+		}
+		else
+		{
+		       $("#other").hide(); 
+		}
+		    
+		});
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Anomaly Detection WorkBench</title>
+
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+<link href="charts/nv.d3.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="media/css/jquery.dataTables.css">
+<style type="text/css" class="init">
+
+</style>
+
+<script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="media/js/jsonp.js"></script>
+
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="charts/nv.d3.min.js"></script>
+<script type="text/javascript" language="javascript" class="init">
+			$(document).ready(function() {
+				d3.json("./getOutliers", function(error, result){
+						var table = $('#results').DataTable( {
+							"data": result.data,
+							"columns": result.columns,
+							"paginate": false
+						} );	
+						
+						$('#results tbody').on( 'click', 'tr', function () {
+							$(this).toggleClass('selected');
+						} );
+						
+						$('#createServiceNow').click( function () 
+						{
+							var data = table.rows('.selected').data();
+							var anomalies=[];
+							for (var i = 0; i < data.length; i++) {
+							    anomalies.push(data[i]);
+							}
+							var parameters = { "anomalydata": anomalies};
+							
+							d3.json("./services/TicketService/createTicket")
+							.header("Content-type", "text/plain")
+							.post(JSON.stringify(parameters),function(error, result){
+								$('#ticketContainer').html('<h2>Service Requests Details</h2><br/><table class="table table-bordered table-striped" id="tickets"></table>');
+								// render the table
+								var outLierTable = tabulate(result.data, result.columns);
+								// uppercase the column headers
+								outLierTable.selectAll("thead th")
+								    .text(function(column) {
+								        return column.charAt(0).toUpperCase() + column.substr(1);
+								    });
+								
+						    });
+							
+						});
+
+						$('#createSR').click( function () 
+						{
+							var data = table.rows('.selected').data();
+							var anomalies=[];
+							for (var i = 0; i < data.length; i++) {
+							    anomalies.push(data[i]);
+							}
+							var parameters = { "anomalydata": anomalies};
+							
+							d3.json("./ServiceTicketServlet")
+							.header("Content-type", "application/json")
+							.post(JSON.stringify(parameters),function(error, result){
+								$('#ticketContainer').html('<h2>Service Requests Details</h2><br/><table class="table table-bordered table-striped" id="tickets"></table>');
+								// render the table
+								var outLierTable = tabulate(result.data, result.columns);
+								// uppercase the column headers
+								outLierTable.selectAll("thead th")
+								    .text(function(column) {
+								        return column.charAt(0).toUpperCase() + column.substr(1);
+								    });
+								
+						    });
+							
+						});
+				});
+				
+			} );
+			
+			function tabulate(data, columns) {
+			    var table = d3.select("#tickets"),
+			        thead = table.append("thead"),
+			        tbody = table.append("tbody");
+			    // append the header row
+			    thead.append("tr")
+			        .selectAll("th")
+			        .data(columns)
+			        .enter()
+			        .append("th")
+			            .text(function(column) { return column; });
+	
+			    // create a row for each object in the data
+			    var rows = tbody.selectAll("tr")
+			        .data(data)
+			        .enter()
+			        .append("tr");
+	
+			    // create a cell in each row for each column
+			    var cells = rows.selectAll("td")
+			        .data(function(row) {
+			            return columns.map(function(column) {
+			                return {column: column, value: row[column]};
+			            });
+			        })
+			        .enter()
+			        .append("td")
+			            .text(function(d) { return d.value; });
+			    
+			    return table;
+			}
+	   </script>
+<style type="text/css">
+      body {
+        padding-top: 43px;
+      }
+      .statement_para {
+          font-size: 14pt;
+          line-height: 120%;
+          width: 60%;
+          text-align: justify;
+          text-justify: distribute;
+          margin: 10px auto;
+          margin-bottom: 30px;
+      }
+
+      .row {
+        margin 1%;
+      }
+
+      article {
+        padding: 0 1%;
+        font-size: 18px;
+        line-height: 1.5em;
+      }
+
+      body > .container {
+        width: 941px;
+      }
+
+      @media(min-width: 1200px){
+        body > .container {
+          width: 1171px;
+        }
+      }
+
+      @media (max-width: 979px) and (min-width: 768px) {
+        body > .container {
+          width: 725px;
+        }
+      }
+
+    </style>
+</head>
+<body>
+<div class="container">
+	<br />
+		<h1>
+			<img src="bootstrap/img/bludemo.jpg"><a href="index.html">Anomaly Detection WorkBench</a>
+			<a href="index.html" class="btn btn-info"><i class="icon-white icon-home center"></i> Home</a>
+			
+		</h1>
+		
+		<hr>
+	<div class="container with-3d-shadow with-transitions">
+              <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="row">
+        <div class="span3">
+        <div class="well">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                Data Classification Reports
+              </li>
+              <li>
+                <a href="OutLierReport.html">Top-5 Outliers</a>
+              </li>
+              <li>
+                 <a href="ClusterReport.html">Cluster Visualization</a>
+              </li>
+               <li>
+                 <a href="DataPatternReport.html">Data Patterns</a>
+              </li>
+              <li>
+                 <a href="PredictionReport.html">Prediction Report</a>
+              </li>
+               <li>
+                 <a href="MyTickets.html">My Tickets</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="span9">
+			<h2>Top-5 Outliers</h2>
+	        <div class="span9" id="outLierContainer">
+		        <table id="results" class="display" cellspacing="0" width="100%">
+		        </table>
+			</div>
+			<br/>
+			<button id="createSR" class="btn btn-success">Create SR On SalesForce Service Cloud</button>
+			<button id="createServiceNow" class="btn btn-success">Create SR On ServiceNow</button>
+			<br/>
+			<div class="span9" id="ticketContainer">
+			</div>
+		</div>
+</div>	
+</body>
+</html>

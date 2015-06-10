@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Anomaly Detection WorkBench</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css"
+	type="text/css" />
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<style>
+.span6 .btn-large{width: 150px;}
+.modal .btn{width: 300px;}
+
+#learn .btn{width: 130px;}
+.navbar .nav,
+.navbar .nav > li {
+    float:none;
+    display:inline-block;
+    vertical-align: top;
+}
+
+ .navbar-inner {
+    text-align:center;
+}
+
+.modal-footer{
+text-align: center;
+}
+
+.twitter-share-button{
+margin-top: 5px;
+}
+</style>
+</head>
+
+
+<body>
+	<div class="container">
+		<br />
+		<h1>
+			<img src="bootstrap/img/bludemo.jpg"><a href="#">Anomaly Detection WorkBench</a>
+		</h1>
+		<div class="hero-unit">
+			<h1>Upload your Data</h1>
+			<h3>Get a Data Classification and Outlier report!</h3>
+			<button class="btn btn-large btn-success" data-target="#modal"
+				data-toggle="modal">Get Started</button>
+			<div id="modal" class="modal hide">
+				<div class="modal-body">
+					<div class="modal-footer">
+						<a href="trainingDatabase.jsp" class="btn btn-info btn-large"><i class="icon-white icon-wrench"></i> Upload your own training data..</a> <br />
+						<!-- <br /> <a href="uploadTestingSet.html" class="btn btn-success btn-large"><i class="icon-white icon-play"></i> Use Pmobile's training set..</a> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+
+	<!-- <div class="navbar">
+    <div class="navbar-inner">
+	    <ul class="nav navbar-nav nav-justified">
+	    	<li><a href="https://hub.jazz.net/project/kschawla/bludemo/overview" target="_blank"><i class="icon-black icon-cog"></i> Get the code</a></li>
+	    	<li><a href="http://bluforcloud.com/" target="_blank"><i class="icon-black icon-info-sign"></i> BLU for Cloud</a></li>
+	    	<li><a href="http://bluemix.net/" target="_blank"><i class="icon-black icon-info-sign"></i> BlueMix</a></li>
+	    	<li><a href="http://www.ibm.com/developerworks/library/bd-dataminingblu-app/" target="_blank"><i class="icon-black icon-list"></i> Tutorial</a></li>
+	    	<li><a href="https://twitter.com/share" class="twitter-share-button" data-text="BLU Acceleration for Cloud on IBM's BlueMix" data-size="large" data-hashtags="bluforcloud">Tweet</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+	    </ul>
+    </div>
+    </div>  -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+	</div>
+</body>
+</html>
